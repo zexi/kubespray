@@ -114,3 +114,10 @@
     name: "{{ ( (ansible_distribution_major_version | int) < 8) | ternary('libselinux-python','python3-libselinux') }}"
     state: present
   become: true
+
+# update ca-certificates
+- name: Install ca-certificates
+  package:
+    name: ca-certificates
+    state: latest
+  become: true
