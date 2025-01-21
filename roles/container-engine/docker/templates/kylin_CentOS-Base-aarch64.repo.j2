@@ -1,0 +1,40 @@
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+
+[base]
+name=CentOS-7 - Base
+baseurl=http://mirrors.aliyun.com/centos-altarch/7/os/$basearch/
+gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/centos-altarch/7/os/$basearch/RPM-GPG-KEY-CentOS-7
+
+#released updates 
+[updates]
+name=CentOS-7 - Updates
+baseurl=http://mirrors.aliyun.com/centos-altarch/7/updates/$basearch/
+gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/centos-altarch/7/os/$basearch/RPM-GPG-KEY-CentOS-7
+
+#additional packages that may be useful
+[extras]
+name=CentOS-7 - Extras
+baseurl=http://mirrors.aliyun.com/centos-altarch/7/extras/$basearch/
+gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/centos-altarch/7/os/$basearch/RPM-GPG-KEY-CentOS-7
+enabled=1
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-7 - Plus
+baseurl=http://mirrors.aliyun.com/centos-altarch/7/centosplus/$basearch/
+gpgcheck=0
+enabled=0
+gpgkey=http://mirrors.aliyun.com/centos-altarch/7/os/$basearch/RPM-GPG-KEY-CentOS-7

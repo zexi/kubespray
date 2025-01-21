@@ -71,13 +71,23 @@
     dest: "{{ yum_repo_dir }}/docker.repo"
   when: ansible_distribution == "Fedora" and not is_ostree
 
-- name: Configure CentOS7 base repo for KylinLinux
+- name: Configure CentOS7 base repo for KylinLinux x86_64
   template:
     src: "kylin_CentOS-Base.repo.j2"
     dest: "{{ yum_repo_dir }}/CentOS-Base.repo"
     mode: 0644
   when:
     - ansible_distribution == "Kylin Linux Advanced Server"
+    - ansible_architecture == "x86_64"
+
+- name: Configure CentOS7 base repo for KylinLinux aarch64
+  template:
+    src: "kylin_CentOS-Base-aarch64.repo.j2"
+    dest: "{{ yum_repo_dir }}/CentOS-Base.repo"
+    mode: 0644
+  when:
+    - ansible_distribution == "Kylin Linux Advanced Server"
+    - ansible_architecture == "aarch64"
 
 - name: Configure docker repository on RedHat/CentOS/Oracle Linux/KylinLinux
   template:
@@ -156,6 +166,14 @@
   notify: restart docker
   ignore_errors: true
   when: ansible_os_family in ["ClearLinux"]
+
+- name: Remove docker-runc package for KylinLinux aarch64
+  package:
+    name: docker-runc
+    state: absent
+  when:
+    - ansible_distribution == "Kylin Linux Advanced Server"
+    - ansible_architecture == "aarch64"
 
 - name: get available packages on Ubuntu
   command: apt-cache policy docker-ce
